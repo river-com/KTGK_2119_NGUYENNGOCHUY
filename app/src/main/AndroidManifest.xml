@@ -30,6 +30,12 @@
             android:theme="@style/Theme.KTGK_2119_NGUYENNGOCHUY"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".ChinhSuaChiTieuActivity"
+            android:exported="false"
+            android:theme="@style/Theme.KTGK_2119_NGUYENNGOCHUY"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>
