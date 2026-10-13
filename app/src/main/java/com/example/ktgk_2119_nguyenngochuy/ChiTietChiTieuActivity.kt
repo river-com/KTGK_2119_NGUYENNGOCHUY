@@ -1,7 +1,11 @@
 package com.example.ktgk_2119_nguyenngochuy
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ktgk_2119_nguyenngochuy.databinding.ActivityChiTietChiTieuBinding
 import java.util.Locale
@@ -14,6 +18,8 @@ class ChiTietChiTieuActivity : AppCompatActivity() {
     private var soTien_119: Double = 0.0
     private var ghiChu_119: String = ""
     private var daThanhToan_119: Boolean = false
+
+    private lateinit var chinhSuaLauncher_119: ActivityResultLauncher<Intent>
 
     companion object {
         const val EXTRA_TEN_KHOAN_CHI_119 = "EXTRA_TEN_KHOAN_CHI_119"
@@ -33,6 +39,9 @@ class ChiTietChiTieuActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
         }
 
+        // Đăng ký Activity Result Launcher theo Activity Result API
+        khoiTaoChinhSuaLauncher_119()
+
         layDuLieuIntent_119()
         hienThiThongTin_119()
 
@@ -41,8 +50,43 @@ class ChiTietChiTieuActivity : AppCompatActivity() {
         }
 
         binding_119.btnChinhSua119.setOnClickListener {
-            Toast.makeText(this, "Chức năng chỉnh sửa sẽ thực hiện ở Câu 3", Toast.LENGTH_SHORT).show()
+            moManHinhChinhSua_119()
         }
+    }
+
+    private fun khoiTaoChinhSuaLauncher_119() {
+        chinhSuaLauncher_119 = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result_119 ->
+            if (result_119.resultCode == Activity.RESULT_OK && result_119.data != null) {
+                val data_119 = result_119.data!!
+                val tenMoi_119 = data_119.getStringExtra(ChinhSuaChiTieuActivity.EXTRA_TEN_KHOAN_CHI_119) ?: ""
+                val soTienMoi_119 = data_119.getDoubleExtra(ChinhSuaChiTieuActivity.EXTRA_SO_TIEN_119, 0.0)
+                val ghiChuMoi_119 = data_119.getStringExtra(ChinhSuaChiTieuActivity.EXTRA_GHI_CHU_119) ?: ""
+
+                if (tenMoi_119.isNotBlank() && soTienMoi_119 > 0) {
+                    tenKhoanChi_119 = tenMoi_119
+                    soTien_119 = soTienMoi_119
+                    ghiChu_119 = ghiChuMoi_119
+
+                    hienThiThongTin_119()
+                    Toast.makeText(this, "Cập nhật khoản chi thành công!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Dữ liệu trả về không hợp lệ!", Toast.LENGTH_SHORT).show()
+                }
+            } else if (result_119.resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Đã hủy chỉnh sửa khoản chi", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun moManHinhChinhSua_119() {
+        val intent_119 = Intent(this, ChinhSuaChiTieuActivity::class.java).apply {
+            putExtra(ChinhSuaChiTieuActivity.EXTRA_TEN_KHOAN_CHI_119, tenKhoanChi_119)
+            putExtra(ChinhSuaChiTieuActivity.EXTRA_SO_TIEN_119, soTien_119)
+            putExtra(ChinhSuaChiTieuActivity.EXTRA_GHI_CHU_119, ghiChu_119)
+        }
+        chinhSuaLauncher_119.launch(intent_119)
     }
 
     private fun layDuLieuIntent_119() {
@@ -51,7 +95,6 @@ class ChiTietChiTieuActivity : AppCompatActivity() {
         ghiChu_119 = intent.getStringExtra(EXTRA_GHI_CHU_119) ?: ""
         daThanhToan_119 = intent.getBooleanExtra(EXTRA_DA_THANH_TOAN_119, false)
 
-        // Kiểm tra tính hợp lệ của dữ liệu Intent
         if (tenKhoanChi_119.isBlank() || soTien_119 <= 0) {
             Toast.makeText(this, "Dữ liệu khoản chi truyền sang không hợp lệ!", Toast.LENGTH_LONG).show()
             finish()
