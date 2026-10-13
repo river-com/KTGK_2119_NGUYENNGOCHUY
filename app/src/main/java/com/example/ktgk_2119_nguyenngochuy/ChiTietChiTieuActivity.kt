@@ -59,11 +59,12 @@ class ChiTietChiTieuActivity : AppCompatActivity() {
                 val khoanChiDaSua_119 = data_119.getSerializableExtra(ChinhSuaChiTieuActivity.EXTRA_KHOAN_CHI_119) as? KhoanChi
 
                 if (khoanChiDaSua_119 != null && khoanChiDaSua_119.tenKhoanChi_119.isNotBlank() && khoanChiDaSua_119.laSoTienHopLe_119()) {
-                    // Cập nhật thông tin khoản chi nhưng giữ nguyên mã khoản chi và trạng thái thanh toán cũ
+                    // Cập nhật thông tin khoản chi mới giữ nguyên mã khoản chi cũ
                     khoanChi_119?.apply {
                         tenKhoanChi_119 = khoanChiDaSua_119.tenKhoanChi_119
                         soTien_119 = khoanChiDaSua_119.soTien_119
                         ghiChu_119 = khoanChiDaSua_119.ghiChu_119
+                        daThanhToan_119 = khoanChiDaSua_119.daThanhToan_119
                     }
 
                     hienThiThongTin_119()

@@ -53,12 +53,14 @@ class ChinhSuaChiTieuActivity : AppCompatActivity() {
             binding_119.edtSoTien119.setText(String.format(Locale.getDefault(), "%.0f", current_119.soTien_119))
         }
         binding_119.edtGhiChu119.setText(current_119.ghiChu_119)
+        binding_119.cbDaThanhToan119.isChecked = current_119.daThanhToan_119
     }
 
     private fun luuChinhSua_119() {
         val tenMoi_119 = binding_119.edtTenKhoanChi119.text.toString().trim()
         val soTienChuoiMoi_119 = binding_119.edtSoTien119.text.toString().trim()
         val ghiChuMoi_119 = binding_119.edtGhiChu119.text.toString().trim()
+        val daThanhToanMoi_119 = binding_119.cbDaThanhToan119.isChecked
 
         if (tenMoi_119.isEmpty()) {
             Toast.makeText(this, "Tên khoản chi không được để trống!", Toast.LENGTH_SHORT).show()
@@ -85,7 +87,7 @@ class ChinhSuaChiTieuActivity : AppCompatActivity() {
             tenKhoanChi_119 = tenMoi_119,
             soTien_119 = soTienChuyenDoi_119,
             ghiChu_119 = ghiChuMoi_119,
-            daThanhToan_119 = original_119?.daThanhToan_119 ?: false
+            daThanhToan_119 = daThanhToanMoi_119
         )
 
         val intentKetQua_119 = Intent().apply {
