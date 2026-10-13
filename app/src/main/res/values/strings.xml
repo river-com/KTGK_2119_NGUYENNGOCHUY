@@ -3,6 +3,7 @@
     <string name="toolbar_title_119">Nguyễn Ngọc Huy - 2415053122119 - Quản lý chi tiêu cá nhân</string>
     <string name="nhap_thong_tin_title_119">NHẬP THÔNG TIN KHOẢN CHI</string>
     <string name="chi_tiet_title_119">CHI TIẾT KHOẢN CHI</string>
+    <string name="chinh_sua_title_119">CHỈNH SỬA KHOẢN CHI</string>
     <string name="ten_khoan_chi_hint_119">Tên khoản chi (*)</string>
     <string name="so_tien_hint_119">Số tiền (VNĐ) (*)</string>
     <string name="ghi_chu_hint_119">Ghi chú</string>
