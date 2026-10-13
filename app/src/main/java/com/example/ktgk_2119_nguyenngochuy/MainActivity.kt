@@ -31,6 +31,20 @@ class MainActivity : AppCompatActivity() {
         binding_119.btnXemChiTiet119.setOnClickListener {
             xemChiTietKhoanChi_119()
         }
+
+        // Xử lý sự kiện nạp bộ dữ liệu mẫu riêng cho ứng dụng
+        binding_119.btnNapDuLieuMau119.setOnClickListener {
+            napDuLieuMau_119()
+        }
+    }
+
+    // Hàm nạp dữ liệu mẫu
+    private fun napDuLieuMau_119() {
+        binding_119.edtTenKhoanChi119.setText("Mua giáo trình Android cơ bản")
+        binding_119.edtSoTien119.setText("150000")
+        binding_119.edtGhiChu119.setText("Sách học thực hành KTGK")
+        binding_119.cbDaThanhToan119.isChecked = false
+        Toast.makeText(this, "Đã điền dữ liệu mẫu thành công!", Toast.LENGTH_SHORT).show()
     }
 
     // Hàm xử lý thêm khoản chi tự đặt có hậu tố _119
@@ -38,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         val tenNhap_119 = binding_119.edtTenKhoanChi119.text.toString().trim()
         val soTienChuoi_119 = binding_119.edtSoTien119.text.toString().trim()
         val ghiChuNhap_119 = binding_119.edtGhiChu119.text.toString().trim()
+        val daThanhToanNhap_119 = binding_119.cbDaThanhToan119.isChecked
 
         // 1. Kiểm tra tên khoản chi
         if (tenNhap_119.isEmpty()) {
@@ -67,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             tenKhoanChi_119 = tenNhap_119,
             soTien_119 = soTienChuyenDoi_119,
             ghiChu_119 = ghiChuNhap_119,
-            daThanhToan_119 = false
+            daThanhToan_119 = daThanhToanNhap_119
         )
 
         // Kiểm tra số tiền hợp lệ bằng hàm của lớp KhoanChi
