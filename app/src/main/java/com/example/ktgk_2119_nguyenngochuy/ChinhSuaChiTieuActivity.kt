@@ -6,19 +6,16 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ktgk_2119_nguyenngochuy.databinding.ActivityChinhSuaChiTieuBinding
+import java.util.Locale
 
 class ChinhSuaChiTieuActivity : AppCompatActivity() {
 
     private lateinit var binding_119: ActivityChinhSuaChiTieuBinding
 
-    private var tenKhoanChi_119: String = ""
-    private var soTien_119: Double = 0.0
-    private var ghiChu_119: String = ""
+    private var khoanChiTruyenSang_119: KhoanChi? = null
 
     companion object {
-        const val EXTRA_TEN_KHOAN_CHI_119 = "EXTRA_TEN_KHOAN_CHI_119"
-        const val EXTRA_SO_TIEN_119 = "EXTRA_SO_TIEN_119"
-        const val EXTRA_GHI_CHU_119 = "EXTRA_GHI_CHU_119"
+        const val EXTRA_KHOAN_CHI_119 = "EXTRA_KHOAN_CHI_119"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,17 +42,17 @@ class ChinhSuaChiTieuActivity : AppCompatActivity() {
     }
 
     private fun layDuLieuTruyenSang_119() {
-        tenKhoanChi_119 = intent.getStringExtra(EXTRA_TEN_KHOAN_CHI_119) ?: ""
-        soTien_119 = intent.getDoubleExtra(EXTRA_SO_TIEN_119, 0.0)
-        ghiChu_119 = intent.getStringExtra(EXTRA_GHI_CHU_119) ?: ""
+        @Suppress("DEPRECATION")
+        khoanChiTruyenSang_119 = intent.getSerializableExtra(EXTRA_KHOAN_CHI_119) as? KhoanChi
     }
 
     private fun dienDuLieuHienTai_119() {
-        binding_119.edtTenKhoanChi119.setText(tenKhoanChi_119)
-        if (soTien_119 > 0) {
-            binding_119.edtSoTien119.setText(String.format("%.0f", soTien_119))
+        val current_119 = khoanChiTruyenSang_119 ?: return
+        binding_119.edtTenKhoanChi119.setText(current_119.tenKhoanChi_119)
+        if (current_119.soTien_119 > 0) {
+            binding_119.edtSoTien119.setText(String.format(Locale.getDefault(), "%.0f", current_119.soTien_119))
         }
-        binding_119.edtGhiChu119.setText(ghiChu_119)
+        binding_119.edtGhiChu119.setText(current_119.ghiChu_119)
     }
 
     private fun luuChinhSua_119() {
@@ -82,10 +79,17 @@ class ChinhSuaChiTieuActivity : AppCompatActivity() {
             return
         }
 
+        val original_119 = khoanChiTruyenSang_119
+        val khoanChiSuaMoi_119 = KhoanChi(
+            maKhoanChi_119 = original_119?.maKhoanChi_119 ?: "KC119_0",
+            tenKhoanChi_119 = tenMoi_119,
+            soTien_119 = soTienChuyenDoi_119,
+            ghiChu_119 = ghiChuMoi_119,
+            daThanhToan_119 = original_119?.daThanhToan_119 ?: false
+        )
+
         val intentKetQua_119 = Intent().apply {
-            putExtra(EXTRA_TEN_KHOAN_CHI_119, tenMoi_119)
-            putExtra(EXTRA_SO_TIEN_119, soTienChuyenDoi_119)
-            putExtra(EXTRA_GHI_CHU_119, ghiChuMoi_119)
+            putExtra(EXTRA_KHOAN_CHI_119, khoanChiSuaMoi_119)
         }
 
         setResult(Activity.RESULT_OK, intentKetQua_119)
