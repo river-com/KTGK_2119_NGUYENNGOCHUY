@@ -74,7 +74,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="12dp"
                 android:hint="@string/ghi_chu_hint_119">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -84,6 +84,14 @@
                     android:inputType="textMultiLine"
                     android:minLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/cbDaThanhToan_119"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="@string/da_thanh_toan_checkbox_119"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/btnLuu_119"

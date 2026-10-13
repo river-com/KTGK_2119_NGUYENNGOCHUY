@@ -12,6 +12,9 @@
     <string name="btn_chinh_sua_119">Chỉnh sửa khoản chi</string>
     <string name="btn_luu_119">Lưu thay đổi</string>
     <string name="btn_huy_119">Hủy bỏ</string>
+    <string name="btn_mau_119">Điền dữ liệu mẫu</string>
+    <string name="da_thanh_toan_checkbox_119">Đã thanh toán khoản chi này</string>
+    <string name="doi_trang_thai_119">Đổi trạng thái thanh toán</string>
     <string name="trang_thai_khoan_chi_title_119">Trạng thái khoản chi vừa thêm:</string>
     <string name="chua_co_khoan_chi_119">Chưa có khoản chi nào được lưu.</string>
     <string name="quay_lai_119">Quay lại màn hình chính</string>

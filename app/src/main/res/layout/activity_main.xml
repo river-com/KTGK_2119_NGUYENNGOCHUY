@@ -74,7 +74,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="12dp"
                 android:hint="@string/ghi_chu_hint_119">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -84,6 +84,14 @@
                     android:inputType="textMultiLine"
                     android:minLines="2" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/cbDaThanhToan_119"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/da_thanh_toan_checkbox_119"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/btnThemKhoanChi_119"
@@ -98,14 +106,22 @@
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/btn_xem_chi_tiet_119"
                 android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnNapDuLieuMau_119"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/btn_mau_119"
+                android:textSize="14sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="2dp"
                 app:strokeWidth="1dp">
