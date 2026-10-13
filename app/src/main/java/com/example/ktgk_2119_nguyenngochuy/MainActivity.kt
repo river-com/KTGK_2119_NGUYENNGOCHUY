@@ -5,18 +5,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ktgk_2119_nguyenngochuy.databinding.ActivityMainBinding
-import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding_119: ActivityMainBinding
 
-    // Các biến lưu thông tin khoản chi tự đặt có hậu tố _119
-    private var tenKhoanChi_119: String = ""
-    private var soTien_119: Double = 0.0
-    private var ghiChu_119: String = ""
-    private var daThanhToan_119: Boolean = false
-    private var coKhoanChiHopLe_119: Boolean = false
+    // Sử dụng đối tượng KhoanChi làm mô hình dữ liệu chính
+    private var khoanChiHienTai_119: KhoanChi? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,44 +54,46 @@ class MainActivity : AppCompatActivity() {
         }
 
         val soTienChuyenDoi_119 = soTienChuoi_119.toDoubleOrNull()
-        if (soTienChuyenDoi_119 == null || !laSoTienHopLe_119(soTienChuyenDoi_119)) {
-            Toast.makeText(this, "Số tiền phải là số hợp lệ và lớn hơn 0!", Toast.LENGTH_SHORT).show()
+        if (soTienChuyenDoi_119 == null) {
+            Toast.makeText(this, "Số tiền phải là định dạng số hợp lệ!", Toast.LENGTH_SHORT).show()
             binding_119.edtSoTien119.requestFocus()
             return
         }
 
-        // Lưu thông tin khoản chi hợp lệ
-        tenKhoanChi_119 = tenNhap_119
-        soTien_119 = soTienChuyenDoi_119
-        ghiChu_119 = ghiChuNhap_119
-        daThanhToan_119 = false
-        coKhoanChiHopLe_119 = true
+        // Khởi tạo đối tượng KhoanChi
+        val maRandom_119 = "KC119_" + (System.currentTimeMillis() % 10000).toString()
+        val khoanChiMoi_119 = KhoanChi(
+            maKhoanChi_119 = maRandom_119,
+            tenKhoanChi_119 = tenNhap_119,
+            soTien_119 = soTienChuyenDoi_119,
+            ghiChu_119 = ghiChuNhap_119,
+            daThanhToan_119 = false
+        )
 
-        val trangThaiChuoi_119 = if (daThanhToan_119) "Đã thanh toán" else "Chưa thanh toán"
-        val soTienDinhDang_119 = String.format(Locale.getDefault(), "%,.0f VNĐ", soTien_119)
-        binding_119.tvTrangThaiKhoanChi119.text =
-            "Tên: $tenKhoanChi_119\nSố tiền: $soTienDinhDang_119\nTrạng thái: $trangThaiChuoi_119"
+        // Kiểm tra số tiền hợp lệ bằng hàm của lớp KhoanChi
+        if (!khoanChiMoi_119.laSoTienHopLe_119()) {
+            Toast.makeText(this, "Số tiền phải lớn hơn 0!", Toast.LENGTH_SHORT).show()
+            binding_119.edtSoTien119.requestFocus()
+            return
+        }
+
+        khoanChiHienTai_119 = khoanChiMoi_119
+
+        binding_119.tvTrangThaiKhoanChi119.text = khoanChiHienTai_119?.layThongTin_119()
 
         Toast.makeText(this, "Thêm khoản chi thành công!", Toast.LENGTH_SHORT).show()
     }
 
-    // Hàm kiểm tra số tiền hợp lệ tự đặt có hậu tố _119
-    private fun laSoTienHopLe_119(soTien_119: Double): Boolean {
-        return soTien_119 > 0
-    }
-
     // Hàm xem chi tiết khoản chi tự đặt có hậu tố _119
     private fun xemChiTietKhoanChi_119() {
-        if (!coKhoanChiHopLe_119) {
+        val khoanChi_119 = khoanChiHienTai_119
+        if (khoanChi_119 == null || !khoanChi_119.laSoTienHopLe_119()) {
             Toast.makeText(this, "Vui lòng thêm khoản chi hợp lệ trước khi xem chi tiết!", Toast.LENGTH_SHORT).show()
             return
         }
 
         val intent_119 = Intent(this, ChiTietChiTieuActivity::class.java).apply {
-            putExtra(ChiTietChiTieuActivity.EXTRA_TEN_KHOAN_CHI_119, tenKhoanChi_119)
-            putExtra(ChiTietChiTieuActivity.EXTRA_SO_TIEN_119, soTien_119)
-            putExtra(ChiTietChiTieuActivity.EXTRA_GHI_CHU_119, ghiChu_119)
-            putExtra(ChiTietChiTieuActivity.EXTRA_DA_THANH_TOAN_119, daThanhToan_119)
+            putExtra(ChiTietChiTieuActivity.EXTRA_KHOAN_CHI_119, khoanChi_119)
         }
         startActivity(intent_119)
     }
