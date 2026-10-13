@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ktgk_2119_nguyenngochuy.databinding.ActivityMainBinding
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,8 +73,9 @@ class MainActivity : AppCompatActivity() {
         coKhoanChiHopLe_119 = true
 
         val trangThaiChuoi_119 = if (daThanhToan_119) "Đã thanh toán" else "Chưa thanh toán"
+        val soTienDinhDang_119 = String.format(Locale.getDefault(), "%,.0f VNĐ", soTien_119)
         binding_119.tvTrangThaiKhoanChi119.text =
-            "Tên: $tenKhoanChi_119\nSố tiền: ${String.format("%,.0f", soTien_119)} VNĐ\nTrạng thái: $trangThaiChuoi_119"
+            "Tên: $tenKhoanChi_119\nSố tiền: $soTienDinhDang_119\nTrạng thái: $trangThaiChuoi_119"
 
         Toast.makeText(this, "Thêm khoản chi thành công!", Toast.LENGTH_SHORT).show()
     }
@@ -89,7 +91,13 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Vui lòng thêm khoản chi hợp lệ trước khi xem chi tiết!", Toast.LENGTH_SHORT).show()
             return
         }
-        // Tạm thời hiển thị Toast thông báo khi chưa chuyển sang ChiTietChiTieuActivity
-        Toast.makeText(this, "Mở chi tiết khoản chi: $tenKhoanChi_119", Toast.LENGTH_SHORT).show()
+
+        val intent_119 = Intent(this, ChiTietChiTieuActivity::class.java).apply {
+            putExtra(ChiTietChiTieuActivity.EXTRA_TEN_KHOAN_CHI_119, tenKhoanChi_119)
+            putExtra(ChiTietChiTieuActivity.EXTRA_SO_TIEN_119, soTien_119)
+            putExtra(ChiTietChiTieuActivity.EXTRA_GHI_CHU_119, ghiChu_119)
+            putExtra(ChiTietChiTieuActivity.EXTRA_DA_THANH_TOAN_119, daThanhToan_119)
+        }
+        startActivity(intent_119)
     }
 }
